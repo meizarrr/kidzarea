@@ -11,7 +11,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,15 +35,29 @@
             android:textSize="13dp" />
 
         <Button
-            android:id="@+id/btnLogout"
+            android:id="@+id/btnMap"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_logut_bg"
-            android:text="@string/btn_logout"
+            android:background="@color/btn_map_bg"
+            android:text="@string/btn_map"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_logout_bg"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

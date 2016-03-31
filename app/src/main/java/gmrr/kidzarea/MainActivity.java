@@ -3,6 +3,7 @@ package gmrr.kidzarea;
 import android.os.Bundle;
 
 import gmrr.kidzarea.activity.LoginActivity;
+import gmrr.kidzarea.activity.MapsActivity;
 import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
@@ -19,6 +20,7 @@ public class MainActivity extends Activity {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
+    private Button btnMap;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -60,7 +62,20 @@ public class MainActivity extends Activity {
                 logoutUser();
             }
         });
+
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        MapsActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
+
+
 
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared

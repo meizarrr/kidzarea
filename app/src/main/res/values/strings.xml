@@ -13,5 +13,12 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="name">Fullname</string>
     <string name="action_settings">KIDZAREA</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="btn_map">Check Location</string>
+    <string name="btn_addKid"> + </string>
+    <string name="btn_addLocation"> + Location</string>
+    <string name="btn_settings">Settings</string>
+
+
 
 </resources>
