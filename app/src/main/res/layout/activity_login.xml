@@ -5,7 +5,18 @@
     android:background="@color/bg_login"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="KIDZAREA"
+        android:textSize="54dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.5" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -52,6 +63,16 @@
             android:text="@string/btn_login"
             android:textColor="@color/btn_login" />
 
+        <!-- JALAN PINTAS BRO -->
+        <Button
+            android:id="@+id/btnJalanPintas"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#5087ff"
+            android:text="@string/btn_login"
+            android:textColor="@color/white" />
+
         <!-- Link to Login Screen -->
 
         <Button
@@ -64,6 +85,16 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/btnSignFB"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dip"
+            android:background="#5087ff"
+            android:text="Sign in with Facebook"
+            android:textSize="12dp"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

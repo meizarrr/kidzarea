@@ -2,8 +2,8 @@ package gmrr.kidzarea;
 
 import android.os.Bundle;
 
-import gmrr.kidzarea.activity.LoginActivity;
 import gmrr.kidzarea.activity.MapsActivity;
+import gmrr.kidzarea.activity.LoginActivity;
 import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
@@ -17,10 +17,10 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private TextView txtName;
-    private TextView txtEmail;
-    private Button btnLogout;
-    private Button btnMap;
+    protected TextView txtName;
+    protected TextView txtEmail;
+    protected Button btnLogout;
+    protected Button btnMap;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         txtName.setText(name);
         txtEmail.setText(email);
 
-        // Logout button click event
+        //Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
-     * */
+     */
     private void logoutUser() {
         session.setLogin(false);
 
@@ -91,4 +91,5 @@ public class MainActivity extends Activity {
         startActivity(intent);
         finish();
     }
+
 }

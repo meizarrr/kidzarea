@@ -1,10 +1,14 @@
 package gmrr.kidzarea.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -19,6 +23,17 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        Button btnViewMyLocation = (Button) findViewById(R.id.btn_ViewMyLocation);
+        btnViewMyLocation.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        SetLocationActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -62,6 +77,16 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+
+        // latitude and longitude
+        double latitude = 0;
+        double longitude = 0 ;
+
+// create marker
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
+
+// adding marker
+        mMap.addMarker(marker);
+        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
     }
 }

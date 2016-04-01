@@ -5,8 +5,8 @@ package gmrr.kidzarea.app;
  */
 public class AppConfig {
     // Server user login url
-    public static String URL_LOGIN = "http://192.168.43.166/kidzarea-server/login.php";
+    public static String URL_LOGIN = "http://10.42.202.11/kidzarea-server/login.php";
 
     // Server user register url
-    public static String URL_REGISTER = "http://192.168.43.166/kidzarea-server/register.php";
+    public static String URL_REGISTER = "http://10.42.202.11/kidzarea-server/register.php";
 }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import gmrr.kidzarea.activity.LoginActivity;
+import gmrr.kidzarea.activity.MapsActivity;
 
 public class Splash extends Activity {
     @Override
