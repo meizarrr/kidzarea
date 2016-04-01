@@ -1,6 +1,7 @@
 package gmrr.kidzarea.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
 
     // UI elements
     private TextView lblLocation;
-    private Button btnShowLocation, btnStartLocationUpdates;
+    private Button btnShowLocation, btnStartLocationUpdates, btnBackToMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
         lblLocation = (TextView) findViewById(R.id.lblLocation);
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnStartLocationUpdates = (Button) findViewById(R.id.btnLocationUpdates);
+        btnBackToMaps = (Button) findViewById(R.id.btnBackToMaps);
 
         // First we need to check availability of play services
         if (checkPlayServices()) {
@@ -80,6 +82,17 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
             @Override
             public void onClick(View v) {
                 togglePeriodicLocationUpdates();
+            }
+        });
+
+        //Back to Maps
+        btnBackToMaps.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        MapsActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -122,6 +135,8 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
     /**
      * Method to display the location on UI
      * */
+    public static double latitudeGlobal=0;
+    public static double longitudeGlobal=0;
     private void displayLocation() {
 
         mLastLocation = LocationServices.FusedLocationApi
@@ -131,6 +146,8 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
 
+            latitudeGlobal=latitude;
+            longitudeGlobal=longitude;
             lblLocation.setText(latitude + ", " + longitude);
 
         } else {
@@ -138,6 +155,15 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
             lblLocation
                     .setText("(Couldn't get the location. Make sure location is enabled on the device)");
         }
+    }
+
+    public static double getLastLatitude()
+    {
+        return latitudeGlobal;
+    }
+    public static double getLastLongitude()
+    {
+        return longitudeGlobal;
     }
 
     /**

@@ -1,14 +1,20 @@
 package gmrr.kidzarea.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -79,14 +85,40 @@ public class MapsActivity extends FragmentActivity {
     private void setUpMap() {
 
         // latitude and longitude
-        double latitude = 0;
-        double longitude = 0 ;
+        //double latitude = SetLocationActivity.getLastLatitude();
+        //double longitude = SetLocationActivity.getLastLongitude() ;
 
-// create marker
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
 
-// adding marker
-        mMap.addMarker(marker);
-        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        if (location != null)
+        {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(17)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera
+                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+            // create marker
+            MarkerOptions marker = new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Anak 1");
+            // adding marker
+            mMap.addMarker(marker);
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_kids));
+        }
+
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true); // true to enable
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
+
+
+
+
+
     }
 }
