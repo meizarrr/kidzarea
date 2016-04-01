@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="bg_login">#26ae90</color>
+    <color name="bg_login">#00cc44</color>
     <color name="bg_register">#2e3237</color>
     <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>
@@ -12,8 +12,12 @@
     <color name="input_register_hint">#5e6266</color>
     <color name="btn_login">#26ae90</color>
     <color name="btn_login_bg">#eceef1</color>
+    <color name="btn_reg">#ffff</color>
+    <color name="btn_reg_bg">#00cc44</color>
     <color name="lbl_name">#333333</color>
     <color name="btn_logout_bg">#ff6861</color>
     <color name="btn_map_bg">#00cc44</color>
+
+    <color name="black_overlay">#66000000</color>
 
 </resources>
