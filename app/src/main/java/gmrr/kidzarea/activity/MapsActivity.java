@@ -6,6 +6,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +19,17 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
+
 import gmrr.kidzarea.R;
+import gmrr.kidzarea.helper.SQLiteHandler;
+import gmrr.kidzarea.helper.SessionManager;
 
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,8 @@ public class MapsActivity extends FragmentActivity {
         setUpMapIfNeeded();
 
         Button btnViewMyLocation = (Button) findViewById(R.id.btn_ViewMyLocation);
+        Button btnLogout = (Button) findViewById(R.id.btnLogout);
+
         btnViewMyLocation.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -40,6 +49,41 @@ public class MapsActivity extends FragmentActivity {
                 finish();
             }
         });
+
+        //Sqlite
+        // SqLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+
+        //Logout button click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
+    }
+
+
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -98,7 +142,7 @@ public class MapsActivity extends FragmentActivity {
                     new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .target(new LatLng(-7.766, 110.372))      // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(0)                // Sets the orientation of the camera
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -106,19 +150,17 @@ public class MapsActivity extends FragmentActivity {
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
             // create marker
-            MarkerOptions marker = new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("Anak 1");
+            MarkerOptions marker = new MarkerOptions().position(new LatLng(-7.766, 110.372)).title("Anak 1");
             // adding marker
             mMap.addMarker(marker);
-            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_kids));
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
         }
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true); // true to enable
         mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-
-
-
-
     }
+
 }
+

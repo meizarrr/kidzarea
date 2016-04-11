@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginBottom="74dp" />
 
     <Button
         android:id="@+id/btnAddLocation"
@@ -30,8 +30,8 @@
         android:text="@string/btn_addLocation"
         android:textColor="@color/btn_map_bg"
         android:layout_alignTop="@+id/btnAddKid"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/button"
@@ -40,10 +40,9 @@
         android:background="@color/btn_map_bg"
         android:text="@string/btn_settings"
         android:textColor="#ffffff"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="53dp" />
+        android:layout_above="@+id/btn_ViewMyLocation"
+        android:layout_toLeftOf="@+id/btnLogout"
+        android:layout_toStartOf="@+id/btnLogout" />
 
     <Button
         android:id="@+id/btn_ViewMyLocation"
@@ -51,10 +50,23 @@
         android:layout_height="wrap_content"
         android:background="@color/btn_map_bg"
         android:text="Show My Location"
-        android:layout_alignTop="@+id/button"
+        android:layout_below="@+id/btnLogout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-        <!--android:textColor="#ffffff"-->
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_logout_bg"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <!--android:textColor="#ffffff"-->
         <!--android:layout_alignBaseline="@+id/btnAddLocation"-->
         <!--android:layout_alignBottom="@+id/btnAddLocation"-->
         <!--android:layout_alignParentRight="true"-->

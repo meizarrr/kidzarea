@@ -135,8 +135,6 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
     /**
      * Method to display the location on UI
      * */
-    public static double latitudeGlobal=0;
-    public static double longitudeGlobal=0;
     private void displayLocation() {
 
         mLastLocation = LocationServices.FusedLocationApi
@@ -145,9 +143,6 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
         if (mLastLocation != null) {
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
-
-            latitudeGlobal=latitude;
-            longitudeGlobal=longitude;
             lblLocation.setText(latitude + ", " + longitude);
 
         } else {
@@ -156,16 +151,6 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
                     .setText("(Couldn't get the location. Make sure location is enabled on the device)");
         }
     }
-
-    public static double getLastLatitude()
-    {
-        return latitudeGlobal;
-    }
-    public static double getLastLongitude()
-    {
-        return longitudeGlobal;
-    }
-
     /**
      * Method to toggle periodic location updates
      * */
