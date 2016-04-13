@@ -12,45 +12,53 @@
 
     <Button
         android:id="@+id/btnAddKid"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:background="@color/btn_map_bg"
-        android:text="@string/btn_addKid"
-        android:textColor="#ffffff"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/addkid"
+        android:text=""
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="74dp" />
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"/>
 
     <Button
         android:id="@+id/btnAddLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/btn_login_bg"
-        android:text="@string/btn_addLocation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/addloc"
+        android:text=""
         android:textColor="@color/btn_map_bg"
-        android:layout_alignTop="@+id/btnAddKid"
+        android:layout_alignTop="@+id/btn_ViewMyLocation"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/btn_map_bg"
-        android:text="@string/btn_settings"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/setting"
         android:textColor="#ffffff"
-        android:layout_above="@+id/btn_ViewMyLocation"
-        android:layout_toLeftOf="@+id/btnLogout"
-        android:layout_toStartOf="@+id/btnLogout" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/btn_ViewMyLocation"
+        android:layout_marginEnd="@+id/btn_ViewMyLocation"
+        android:layout_marginRight="@+id/btn_ViewMyLocation" />
 
     <Button
         android:id="@+id/btn_ViewMyLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/btn_map_bg"
-        android:text="Show My Location"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/findme"
+        android:text=""
         android:layout_below="@+id/btnLogout"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -62,15 +70,15 @@
         android:text="@string/btn_logout"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <!--android:textColor="#ffffff"-->
-        <!--android:layout_alignBaseline="@+id/btnAddLocation"-->
-        <!--android:layout_alignBottom="@+id/btnAddLocation"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
+    <!--android:layout_alignBaseline="@+id/btnAddLocation"-->
+    <!--android:layout_alignBottom="@+id/btnAddLocation"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentEnd="true" />-->
 
 </RelativeLayout>
 
