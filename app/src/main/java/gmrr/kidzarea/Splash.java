@@ -1,8 +1,5 @@
 package gmrr.kidzarea;
 
-/**
- * Created by Rifqi Zuliansyah on 01/04/2016.
- */
 
 import android.app.Activity;
 import android.content.Intent;
