@@ -2,18 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_register"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
+
+        <EditText
+            android:id="@+id/uid"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_uid"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:inputType="textCapWords"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+        <EditText
+            android:id="@+id/uid_ortu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_uid_ortu"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:inputType="textCapWords"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
 
         <EditText
             android:id="@+id/name"
@@ -43,7 +69,7 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/input_register_bg"
@@ -53,6 +79,35 @@
             android:singleLine="true"
             android:textColor="@color/input_register"
             android:textColorHint="@color/input_register_hint" />
+
+        <RadioGroup
+            android:id="@+id/RadioGroupStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/input_register_bg"
+            android:textColor="@color/input_register"
+            android:layout_marginBottom="10dp">
+
+            <RadioButton
+                android:id="@+id/OrangTua"
+                android:textColor="@color/input_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orang Tua"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/Anak"
+                android:textColor="@color/input_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/OrangTua"
+                android:layout_below="@+id/OrangTua"
+                android:text="Anak"
+                android:padding="10dp"
+                android:checked="false" />
+
+        </RadioGroup>
+
 
         <!-- Login Button -->
 

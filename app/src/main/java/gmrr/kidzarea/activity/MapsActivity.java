@@ -49,7 +49,8 @@ public class MapsActivity extends FragmentActivity {
                 finish();
             }
         });
-
+    }
+    /*
         //Sqlite
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -75,7 +76,7 @@ public class MapsActivity extends FragmentActivity {
     }
 
 
-    private void logoutUser() {
+    /*private void logoutUser() {
         session.setLogin(false);
 
         db.deleteUsers();
@@ -84,13 +85,12 @@ public class MapsActivity extends FragmentActivity {
         Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-    }
+    } */
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -142,7 +142,7 @@ public class MapsActivity extends FragmentActivity {
                     new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(-7.766, 110.372))      // Sets the center of the map to location user
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))     // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(0)                // Sets the orientation of the camera
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees

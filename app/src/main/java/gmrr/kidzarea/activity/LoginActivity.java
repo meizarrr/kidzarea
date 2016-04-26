@@ -104,6 +104,7 @@ public class LoginActivity extends Activity {
         btnJalanPintas.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                session.setLogin(true);
                 Intent i = new Intent(getApplicationContext(),
                         MapsActivity.class);
                 startActivity(i);
@@ -134,7 +135,6 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
@@ -142,16 +142,17 @@ public class LoginActivity extends Activity {
                         session.setLogin(true);
 
                         // Now store the user in SQLite
-                        String uid = jObj.getString("uid");
-
                         JSONObject user = jObj.getJSONObject("user");
+                        String uid = user.getString("uid");
+                        String uid_ortu = user.getString("uid_ortu");
                         String name = user.getString("name");
+                        String status = user.getString("status");
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(uid, uid_ortu, name, email, status, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,

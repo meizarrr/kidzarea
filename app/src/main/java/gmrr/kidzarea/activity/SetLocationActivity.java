@@ -162,6 +162,7 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
 
             mRequestingLocationUpdates = true;
 
+
             // Starting the location updates
             startLocationUpdates();
 
