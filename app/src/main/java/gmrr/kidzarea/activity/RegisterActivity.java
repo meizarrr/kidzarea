@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import gmrr.kidzarea.MainActivity;
 import gmrr.kidzarea.R;
 import gmrr.kidzarea.app.AppConfig;
 import gmrr.kidzarea.app.AppController;
@@ -97,7 +96,7 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(RegisterActivity.this,
-                    MainActivity.class);
+                    SetLocationActivity.class);
             startActivity(intent);
             finish();
         }

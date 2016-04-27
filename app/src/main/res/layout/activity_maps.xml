@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    tools:context=".activity.MapsActivity2">
 
     <fragment
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,25 +12,24 @@
         tools:context="gmrr.kidzarea.activity.MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnAddKid"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:text="[ + ]"
+        android:background="@drawable/addkid"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_marginBottom="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp" />
-    <!--android:background="@drawable/addkid"-->
 
-    <Button
+
+    <ImageButton
         android:id="@+id/btnAddLocation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-
-        android:text="[ + ] Lokasi"
+        android:background="@drawable/addloc"
         android:textColor="@color/btn_map_bg"
         android:layout_alignTop="@+id/btn_ViewMyLocation"
         android:layout_marginEnd="10dp"
@@ -36,11 +37,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-
+        android:background="@drawable/setting"
         android:text="Setting"
         android:textColor="#ffffff"
         android:layout_marginTop="20dp"
@@ -50,11 +51,11 @@
         android:layout_marginEnd="@+id/btn_ViewMyLocation"
         android:layout_marginRight="@+id/btn_ViewMyLocation" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_ViewMyLocation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-
+        android:background="@drawable/findme"
         android:text="Lokasi Saya"
         android:layout_below="@+id/btnLogout"
         android:layout_marginTop="10dp"
@@ -75,11 +76,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-    <!--android:textColor="#ffffff"-->
-    <!--android:layout_alignBaseline="@+id/btnAddLocation"-->
-    <!--android:layout_alignBottom="@+id/btnAddLocation"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_alignParentEnd="true" />-->
 
 </RelativeLayout>
 

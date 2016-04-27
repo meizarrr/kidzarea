@@ -32,6 +32,7 @@
     <string name="btn_get_location">Dapatkan Lokasi Saya</string>
     <string name="btn_start_location_updates">Mulai Update Lokasi</string>
     <string name="btn_stop_location_updates">Stop Update Lokasi</string>
+    <string name="title_activity_maps2">Map</string>
 
 
 

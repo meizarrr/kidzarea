@@ -11,13 +11,12 @@ public class Lokasi {
     private String name;
     private double longitude;
     private double latitude;
-
     private String waktu;
 
 
-    public Lokasi(Location location) {
-        this.longitude = location.getLongitude();
-        this.latitude = location.getLatitude();
+    public Lokasi(Location lokasi) {
+        this.longitude = lokasi.getLongitude();
+        this.latitude = lokasi.getLatitude();
     }
 
     public Lokasi(String name, double longitude, double latitude) {
@@ -26,7 +25,7 @@ public class Lokasi {
         this.latitude = latitude;
     }
 
-    public Lokasi(String name, String unique_id, double longitude, double latitude) {
+    public Lokasi(String unique_id, String name,  double longitude, double latitude) {
         this(name, longitude, latitude);
         this.unique_id = unique_id;
     }

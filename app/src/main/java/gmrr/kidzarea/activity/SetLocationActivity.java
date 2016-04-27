@@ -90,7 +90,7 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
-                        MapsActivity.class);
+                        MapsActivity2.class);
                 startActivity(i);
                 finish();
             }

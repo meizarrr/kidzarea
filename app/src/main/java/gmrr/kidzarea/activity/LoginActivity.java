@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import gmrr.kidzarea.MainActivity;
 import gmrr.kidzarea.R;
 import gmrr.kidzarea.app.AppConfig;
 import gmrr.kidzarea.app.AppController;
@@ -63,7 +62,7 @@ public class LoginActivity extends Activity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MapsActivity2.class);
             startActivity(intent);
             finish();
         }
@@ -104,9 +103,9 @@ public class LoginActivity extends Activity {
         btnJalanPintas.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                session.setLogin(true);
+                //session.setLogin(true);
                 Intent i = new Intent(getApplicationContext(),
-                        MapsActivity.class);
+                        MapsActivity2.class);
                 startActivity(i);
                 finish();
             }
@@ -156,7 +155,7 @@ public class LoginActivity extends Activity {
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
-                                MapsActivity.class);
+                                MapsActivity2.class);
                         startActivity(intent);
                         finish();
                     } else {

@@ -1,15 +1,18 @@
 package gmrr.kidzarea.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,25 +22,25 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.HashMap;
-
 import gmrr.kidzarea.R;
 import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity2 extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private SQLiteHandler db;
     private SessionManager session;
+    private SQLiteHandler db;
+    private Lokasi lokasiTerakhir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_maps2);
         setUpMapIfNeeded();
 
-        Button btnViewMyLocation = (Button) findViewById(R.id.btn_ViewMyLocation);
+        ImageButton btnViewMyLocation = (ImageButton) findViewById(R.id.btn_ViewMyLocation);
+        ImageButton btnAddKid = (ImageButton) findViewById(R.id.btnAddKid);
         Button btnLogout = (Button) findViewById(R.id.btnLogout);
 
         btnViewMyLocation.setOnClickListener(new View.OnClickListener() {
@@ -49,25 +52,37 @@ public class MapsActivity extends FragmentActivity {
                 finish();
             }
         });
-    }
-    /*
-        //Sqlite
-        // SqLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+        //just go to register
+        btnAddKid.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                    if (lokasiTerakhir != null) {
+                        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        Criteria criteria = new Criteria();
+                        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+                        final Lokasi lokasi = new Lokasi(location);
+                        // Input nama lokasi
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
+                        final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
+                        builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel(); //coba2
+                            }
+                        }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
+                    }
+//                Intent i = new Intent(getApplicationContext(),
+//                        RegisterActivity.class);
+//                startActivity(i);
+//                finish();
+            }
+        });
 
-        // session manager
-        session = new SessionManager(getApplicationContext());
-
-        if (!session.isLoggedIn()) {
-            logoutUser();
-        }
-
-        // Fetching user details from sqlite
-        HashMap<String, String> user = db.getUserDetails();
-
-        //Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 logoutUser();
@@ -75,32 +90,32 @@ public class MapsActivity extends FragmentActivity {
         });
     }
 
+    private void logoutUser() {
+        //session.setLogin(false);
 
-    /*private void logoutUser() {
-        session.setLogin(false);
-
-        db.deleteUsers();
+        //db.deleteUsers();
 
         // Launching the login activity
-        Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MapsActivity2.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-    } */
+    }
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever
      * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
+     * <p>
      * If it isn't installed {@link SupportMapFragment} (and
      * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
      * install/update the Google Play services APK on their device.
-     * <p/>
+     * <p>
      * A user can return to this FragmentActivity after following the prompt and correctly
      * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
      * have been completely destroyed during this process (it is likely that it would only be
@@ -123,26 +138,24 @@ public class MapsActivity extends FragmentActivity {
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
-     * <p/>
+     * <p>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-
-        // latitude and longitude
-        //double latitude = SetLocationActivity.getLastLatitude();
-        //double longitude = SetLocationActivity.getLastLongitude() ;
-
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude())).title("Marker"));
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        lokasiTerakhir = new Lokasi(location);
+
         if (location != null)
         {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                    new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))     // Sets the center of the map to location user
+                    .target(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()))     // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(0)                // Sets the orientation of the camera
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -150,17 +163,19 @@ public class MapsActivity extends FragmentActivity {
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
             // create marker
-            MarkerOptions marker = new MarkerOptions().position(new LatLng(-7.766, 110.372)).title("Anak 1");
+            MarkerOptions marker = new MarkerOptions().position(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude())).title("Anak 1");
             // adding marker
             mMap.addMarker(marker);
-            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logokidz_kecil));
+
+            MarkerOptions marker2 = new MarkerOptions().position(new LatLng(lokasiTerakhir.getLatitude()+12, lokasiTerakhir.getLongitude()+20)).title("Anak 2");
+            // adding marker
+            mMap.addMarker(marker2);
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logokidz_kecil));
         }
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true); // true to enable
         mMap.getUiSettings().setRotateGesturesEnabled(false);
-
     }
-
 }
-
