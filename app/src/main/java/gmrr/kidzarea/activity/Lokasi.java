@@ -1,11 +1,13 @@
 package gmrr.kidzarea.activity;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Rifqi Zuliansyah on 15/04/2016.
  */
-public class Lokasi {
+public class Lokasi implements Parcelable {
 
     private String unique_id;
     private String name;
@@ -69,4 +71,42 @@ public class Lokasi {
     public void setWaktu(String waktu) {
         this.waktu = waktu;
     }
+
+    /*Parcelable implements*/
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(unique_id);
+        dest.writeString(name);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeString(waktu);
+
+    }
+
+    public static final Parcelable.Creator<Lokasi> CREATOR = new Parcelable.Creator<Lokasi>() {
+        @Override
+        public Lokasi createFromParcel(Parcel source) {
+            return new Lokasi(source);
+        }
+
+        @Override
+        public Lokasi[] newArray(int size) {
+            return new Lokasi[size];
+        }
+    };
+
+    private Lokasi(Parcel source) {
+        unique_id = source.readString();
+        name = source.readString();
+        longitude = source.readDouble();
+        latitude = source.readDouble();
+        waktu = source.readString();
+    }
+
 }

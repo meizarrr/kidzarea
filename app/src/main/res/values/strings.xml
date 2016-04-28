@@ -33,6 +33,7 @@
     <string name="btn_start_location_updates">Mulai Update Lokasi</string>
     <string name="btn_stop_location_updates">Stop Update Lokasi</string>
     <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_riwayat_lokasi">RiwayatLokasi</string>
 
 
 

@@ -1,9 +1,11 @@
 package gmrr.kidzarea.activity;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,8 +25,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Map;
+
 import gmrr.kidzarea.R;
 import gmrr.kidzarea.helper.SQLiteHandler;
+import gmrr.kidzarea.helper.SQLiteLocationHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
 public class MapsActivity2 extends FragmentActivity {
@@ -52,33 +58,37 @@ public class MapsActivity2 extends FragmentActivity {
                 finish();
             }
         });
+
+
         //just go to register
         btnAddKid.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    if (lokasiTerakhir != null) {
-                        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                        Criteria criteria = new Criteria();
-                        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-                        final Lokasi lokasi = new Lokasi(location);
-                        // Input nama lokasi
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
-                        final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
-                        builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel(); //coba2
-                            }
-                        }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        }).create().show();
+            if (lokasiTerakhir != null) {
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+                Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+                final Lokasi lokasi = new Lokasi(location);
+                // Input nama lokasi
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
+                final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
+                builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        lokasi.setName(txtNamaLokasi.getText().toString());
+                        simpan(lokasi);
                     }
-//                Intent i = new Intent(getApplicationContext(),
-//                        RegisterActivity.class);
-//                startActivity(i);
-//                finish();
+                }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+            }
+
+    //                Intent i = new Intent(getApplicationContext(),
+    //                        RegisterActivity.class);
+    //                startActivity(i);
+    //                finish();
             }
         });
 
@@ -88,6 +98,27 @@ public class MapsActivity2 extends FragmentActivity {
                 logoutUser();
             }
         });
+    }
+
+    public void simpan(final Lokasi lokasi) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SQLiteLocationHandler dbHelper = new SQLiteLocationHandler(MapsActivity2.this);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("nama", lokasi.getName());
+                values.put("longitude", lokasi.getLongitude());
+                values.put("latitude", lokasi.getLatitude());
+                db.insert("lokasi", null, values);
+                MapsActivity2.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MapsActivity2.this, "Lokasi berhasil disimpan!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
     }
 
     private void logoutUser() {

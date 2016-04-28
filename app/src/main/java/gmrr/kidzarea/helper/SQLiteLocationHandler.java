@@ -24,15 +24,13 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "login_kidzarea";
 
     // Login table name
-    private static final String TABLE_USER = "users";
+    private static final String TABLE_LOCATION = "location";
 
     // Login Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_EMAIL = "email";
+    private static final String KEY_UID = "uid";    
     private static final String KEY_LONGITUDE = "longitude";
     private static final String KEY_LATITUDE = "latitude";
-    private static final String KEY_UID = "uid";
     private static final String KEY_WAKTU = "waktu";
 
     public SQLiteLocationHandler(Context context) {
@@ -42,12 +40,12 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_EMAIL + " TEXT,"
-                + KEY_LONGITUDE + " DOUBLE UNIQUE," + KEY_LATITUDE + " DOUBLE UNIQUE,"
-                + KEY_UID + " TEXT,"
+        String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"+ KEY_UID + " TEXT," 
+                + KEY_LONGITUDE + " DOUBLE UNIQUE," 
+		+ KEY_LATITUDE + " DOUBLE UNIQUE,"
                 + KEY_WAKTU + " TEXT" + ")";
-        db.execSQL(CREATE_LOGIN_TABLE);
+        db.execSQL(CREATE_LOCATION_TABLE);
 
         Log.d(TAG, "Database tables created");
     }
@@ -56,7 +54,7 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
 
         // Create tables again
         onCreate(db);
@@ -65,59 +63,57 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     /**
      * Storing location details in database
      * */
-    public void addLocation(String name, String email, double longitude,double latitude, String uid, String waktu) {
+    public void addLocation(String uid, double longitude,double latitude, String waktu) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, name); // Name
-        values.put(KEY_EMAIL, email); //email
+	values.put(KEY_UID, uid); // unique
         values.put(KEY_LONGITUDE, longitude); // lokasi longitude
         values.put(KEY_LATITUDE, latitude); // lokasi latitude
-        values.put(KEY_UID, uid); // unique
         values.put(KEY_WAKTU, waktu); // waktu ketika akses tempat
 
         // Inserting Row
-        long id = db.insert(TABLE_USER, null, values);
+        long id = db.insert(TABLE_LOCATION, null, values);
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New user inserted into sqlite: " + id);
+        Log.d(TAG, "New location inserted into sqlite: " + id);
     }
 
     /**
-     * Getting user data from database
+     * Getting location data from database
      * */
-    public HashMap<String, String> getUserDetails() {
-        HashMap<String, String> user = new HashMap<String, String>();
-        String selectQuery = "SELECT  * FROM " + TABLE_USER;
+    public HashMap<String, String> getLocationDetails() {
+        HashMap<String, String> location = new HashMap<String, String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_LOCATION;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user.put("name", cursor.getString(1));
-            user.put("email", cursor.getString(2));
-            user.put("uid", cursor.getString(3));
-            user.put("created_at", cursor.getString(4));
+	    location.put("uid", cursor.getString(1));
+            location.put("longitude", cursor.getString(2));
+	    location.put("latitude", cursor.getString(3));
+            location.put("waktu", cursor.getString(4));
         }
         cursor.close();
         db.close();
-        // return user
-        Log.d(TAG, "Fetching user from Sqlite: " + user.toString());
+        // return location
+        Log.d(TAG, "Fetching location from Sqlite: " + location.toString());
 
-        return user;
+        return location;
     }
 
     /**
      * Re crate database Delete all tables and create them again
      * */
-    public void deleteUsers() {
+    public void deleteLocations() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
-        db.delete(TABLE_USER, null, null);
+        db.delete(TABLE_LOCATION, null, null);
         db.close();
 
-        Log.d(TAG, "Deleted all user info from sqlite");
+        Log.d(TAG, "Deleted all location info from sqlite");
     }
 
 }

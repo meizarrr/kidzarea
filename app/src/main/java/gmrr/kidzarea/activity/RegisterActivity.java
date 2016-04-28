@@ -70,6 +70,7 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
                 // TODO Auto-generated method stub
                 if (radioParent.isChecked()) {
                     inputStatus = "OrangTua";
+                    inputUniqueIDOrtu = inputUniqueID;
                 }
                 if (radioAnak.isChecked()) {
                     inputStatus = "Anak";
@@ -206,9 +207,12 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", uid);
+                params.put("uid_ortu", uid_ortu);
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
+                params.put("status", status);
 
                 return params;
             }

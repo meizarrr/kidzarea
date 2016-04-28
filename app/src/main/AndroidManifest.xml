@@ -66,6 +66,10 @@
             android:name=".activity.MapsActivity2"
             android:label="@string/title_activity_maps2" >
         </activity>
+        <activity
+            android:name=".activity.RiwayatLokasi"
+            android:label="@string/title_activity_riwayat_lokasi" >
+        </activity>
     </application>
 
 </manifest>
