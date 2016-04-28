@@ -26,8 +26,8 @@ public class RiwayatCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        String nama = cursor.getString(cursor.getColumnIndexOrThrow("nama"));
-        ((TextView) view).setText(nama);
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        ((TextView) view).setText(name);
     }
 
 }

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,11 +70,11 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
             public void onCheckedChanged(RadioGroup radio, int checkedId) {
                 // TODO Auto-generated method stub
                 if (radioParent.isChecked()) {
-                    inputStatus = "OrangTua";
-                    inputUniqueIDOrtu = inputUniqueID;
+                    inputStatus = "orangTua";
+                    inputUniqueIDOrtu.setText(inputUniqueID.toString());
                 }
                 if (radioAnak.isChecked()) {
-                    inputStatus = "Anak";
+                    inputStatus = "anak";
                 }
             }
         };
@@ -133,6 +134,26 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
                 finish();
             }
         });
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Silakan klik dua kali untuk keluar.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     /**

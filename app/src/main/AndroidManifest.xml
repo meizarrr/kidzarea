@@ -60,11 +60,12 @@
 
         <activity
             android:name=".activity.SetLocationActivity"
-            android:label="@string/title_activity_set_location" >
+            android:label="@string/title_activity_set_location"
+            android:parentActivityName=".activity.MapsActivity2" >
         </activity>
         <activity
             android:name=".activity.MapsActivity2"
-            android:label="@string/title_activity_maps2" >
+            android:label="KIDZAREA" >
         </activity>
         <activity
             android:name=".activity.RiwayatLokasi"

@@ -1,9 +1,10 @@
 package gmrr.kidzarea.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import com.google.android.gms.location.LocationServices;
 
 import gmrr.kidzarea.R;
 
-public class SetLocationActivity extends Activity implements ConnectionCallbacks,
+public class SetLocationActivity extends AppCompatActivity implements ConnectionCallbacks,
         OnConnectionFailedListener, LocationListener {
 
     // LogCat tag
@@ -51,6 +52,11 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         setContentView(R.layout.activity_set_location);
 
         lblLocation = (TextView) findViewById(R.id.lblLocation);
@@ -130,6 +136,26 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
     protected void onPause() {
         super.onPause();
         stopLocationUpdates();
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Silakan klik dua kali untuk keluar.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     /**

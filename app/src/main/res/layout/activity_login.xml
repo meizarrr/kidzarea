@@ -66,11 +66,11 @@
         <!-- JALAN PINTAS BRO -->
         <Button
             android:id="@+id/btnJalanPintas"
-            android:layout_width="fill_parent"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="#5087ff"
-            android:text="@string/btn_login"
+            android:text="AdminLogin"
             android:textColor="@color/white" />
 
         <!-- Link to Login Screen -->

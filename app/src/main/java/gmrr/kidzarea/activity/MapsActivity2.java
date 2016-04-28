@@ -1,16 +1,22 @@
 package gmrr.kidzarea.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionBarOverlayLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +38,7 @@ import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SQLiteLocationHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
-public class MapsActivity2 extends FragmentActivity {
+public class MapsActivity2 extends AppCompatActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private SessionManager session;
@@ -42,6 +48,10 @@ public class MapsActivity2 extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_maps2);
         setUpMapIfNeeded();
 
@@ -63,32 +73,28 @@ public class MapsActivity2 extends FragmentActivity {
         //just go to register
         btnAddKid.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            if (lokasiTerakhir != null) {
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                Criteria criteria = new Criteria();
-                Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-                final Lokasi lokasi = new Lokasi(location);
-                // Input nama lokasi
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
-                final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
-                builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        lokasi.setName(txtNamaLokasi.getText().toString());
-                        simpan(lokasi);
-                    }
-                }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create().show();
-            }
+                if (lokasiTerakhir != null) {
+                    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+                    final Lokasi lokasi = new Lokasi(location);
+                    // Input nama lokasi
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
+                    final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
+                    builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            lokasi.setName(txtNamaLokasi.getText().toString());
+                            simpan(lokasi);
+                        }
+                    }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+                }
 
-    //                Intent i = new Intent(getApplicationContext(),
-    //                        RegisterActivity.class);
-    //                startActivity(i);
-    //                finish();
             }
         });
 
@@ -122,9 +128,9 @@ public class MapsActivity2 extends FragmentActivity {
     }
 
     private void logoutUser() {
-        //session.setLogin(false);
-
-        //db.deleteUsers();
+//        session.setLogin(false);
+//
+//        db.deleteUsers();
 
         // Launching the login activity
         Intent intent = new Intent(MapsActivity2.this, LoginActivity.class);
@@ -136,6 +142,26 @@ public class MapsActivity2 extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Silakan klik dua kali untuk keluar.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     /**
