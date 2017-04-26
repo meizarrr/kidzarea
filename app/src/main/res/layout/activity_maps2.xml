@@ -47,7 +47,7 @@
         android:id="@+id/btnAddKid"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/logokidz_kecil"
+        android:background="@drawable/addkid"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
@@ -60,14 +60,13 @@
         android:id="@+id/btnAddLocation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/logokidz_kecil"
+        android:background="@drawable/addloc"
         android:textColor="@color/btn_map_bg"
         android:layout_alignTop="@+id/btn_ViewMyLocation"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
 
 
 </RelativeLayout>
